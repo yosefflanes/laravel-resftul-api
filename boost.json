@@ -1,0 +1,10 @@
+{
+    "agents": [
+        "claude_code",
+        "codex",
+        "antigravity",
+        "cursor"
+    ],
+    "cloud": false,
+    "guidelines": true
+}

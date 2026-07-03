@@ -1,11 +1,18 @@
 #!/bin/sh
+set -e
 
-# 1. Optimasi performa API di server production
+# 0. Bersihkan cache config lama (PENTING, biar tidak pakai config basi)
+php artisan config:clear
+
+# 1. Jalankan migration database
+php artisan migrate --force
+
+# 2. Optimasi performa API di production
 php artisan config:cache
 php artisan route:cache
 
-# 2. Jalankan PHP-FPM di background (-D artinya daemon/background)
+# 3. Jalankan PHP-FPM di background
 php-fpm -D
 
-# 3. Jalankan Nginx di foreground agar server terus menyala dan Render tidak mati
+# 4. Jalankan Nginx di foreground
 nginx -g "daemon off;"

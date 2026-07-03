@@ -1,6 +1,6 @@
-FROM php:8.4-fpm
+FROM php:8.3-fpm
 
-# Install system dependencies & PHP extensions yang dibutuhkan Laravel 13
+# Install system dependencies & nginx
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -9,31 +9,29 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    nginx \
+    nginx
 
-# Install ekstensi PHP untuk database dan manipulasi text/gambar
+# Install PHP extensions secara terpisah agar aman
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Install Composer versi terbaru
-COPY --from=composer:latest /usr/bin/composer  /usr/bin/composer
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory di dalam container
+# Set working directory
 WORKDIR /var/www
 
-# Copy semua file project Laravel ke dalam container
+# Copy project files
 COPY . .
 
-# Jalankan Composer install untuk merakit vendor Laravel 13
+# Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Atur permissions agar folder storage bisa ditulis oleh web server
+# Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Copy konfigurasi Nginx
+# Copy Nginx configuration
 COPY ./nginx.conf /etc/nginx/sites-available/default
 
-# Buka port 80 untuk Render
 EXPOSE 80
 
-# Jalankan entrypoint script saat container aktif
 CMD sh /var/www/docker-entrypoint.sh

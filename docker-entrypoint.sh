@@ -6,6 +6,7 @@ php artisan config:clear
 
 # 1. Jalankan migration database
 php artisan migrate --force
+php artisan db:seed --force
 
 # 2. Optimasi performa API di production
 php artisan config:cache

@@ -14,28 +14,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-         User::create([
+         User::firstOrCreate([
             'name'     => 'Jane',
             'email'    => 'jane@mail.com',
             'password' => 'Instructor123',
             'role'     => 'instructor',
         ]);
 
-        User::create([
+        User::firstOrCreate([
             'name'     => 'John',
             'email'    => 'john@mail.com',
             'password' => 'Instructor123',
             'role'     => 'instructor',
         ]);
 
-        User::create([
+        User::firstOrCreate([
             'name'     => 'Alice',
             'email'    => 'alice@mail.com',
             'password' => 'Student123',
             'role'     => 'student',
         ]);
 
-        User::create([
+        User::firstOrCreate([
             'name'     => 'Boby',
             'email'    => 'boby@mail.com',
             'password' => 'Student123',

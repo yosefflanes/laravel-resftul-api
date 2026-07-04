@@ -13,25 +13,25 @@ class CourseCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        CourseCategory::create([
+        CourseCategory::firstOrCreate([
             'name'        => 'Web Development',
             'description' => 'Kursus seputar pengembangan website frontend dan backend',
             'icon'        => 'web.png',
         ]);
 
-        CourseCategory::create([
+        CourseCategory::firstOrCreate([
             'name'        => 'Mobile Development',
             'description' => 'Kursus seputar pengembangan aplikasi mobile Android dan iOS',
             'icon'        => 'mobile.png',
         ]);
 
-        CourseCategory::create([
+        CourseCategory::firstOrCreate([
             'name'        => 'Data Science',
             'description' => 'Kursus seputar analisis data dan machine learning',
             'icon'        => 'data.png',
         ]);
 
-        CourseCategory::create([
+        CourseCategory::firstOrCreate([
             'name'        => 'UI/UX Design',
             'description' => 'Kursus seputar desain antarmuka dan pengalaman pengguna',
             'icon'        => 'design.png',

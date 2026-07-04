@@ -13,7 +13,7 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        Course::create([
+        Course::firstOrCreate([
             'instructor_id'  => 1,
             'category_id'    => 1,
             'title'          => 'Full-Stack Laravel React',
@@ -26,7 +26,7 @@ class CourseSeeder extends Seeder
             'enrolled_count' => 156,
         ]);
 
-        Course::create([
+        Course::firstOrCreate([
             'instructor_id'  => 1,
             'category_id'    => 1,
             'title'          => 'Belajar Laravel untuk Pemula',
@@ -39,7 +39,7 @@ class CourseSeeder extends Seeder
             'enrolled_count' => 320,
         ]);
 
-        Course::create([
+        Course::firstOrCreate([
             'instructor_id'  => 2,
             'category_id'    => 2,
             'title'          => 'Flutter Mobile Development',
@@ -52,7 +52,7 @@ class CourseSeeder extends Seeder
             'enrolled_count' => 98,
         ]);
 
-        Course::create([
+        Course::firstOrCreate([
             'instructor_id'  => 2,
             'category_id'    => 3,
             'title'          => 'Python untuk Data Science',
@@ -65,7 +65,7 @@ class CourseSeeder extends Seeder
             'enrolled_count' => 210,
         ]);
 
-        Course::create([
+        Course::firstOrCreate([
             'instructor_id'  => 1,
             'category_id'    => 4,
             'title'          => 'UI/UX Design dengan Figma',

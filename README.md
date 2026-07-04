@@ -1,4 +1,4 @@
-# EduLearn API
+# DibiEdu API
 
 REST API backend for an online learning platform, built with Laravel. Supports course management, categories, and student enrollments with role-based access control (instructor/student).
 

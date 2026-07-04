@@ -1,58 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# EduLearn API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+REST API backend for an online learning platform, built with Laravel. Supports course management, categories, and student enrollments with role-based access control (instructor/student).
 
-## About Laravel
+**Live Demo:** https://laravel-resftul-api.onrender.com
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Framework:** Laravel 13
+- **Database:** MySQL (Aiven, SSL-secured connection)
+- **Authentication:** Laravel Sanctum (token-based)
+- **Deployment:** Docker, hosted on Render
+- **Web Server:** Nginx + PHP-FPM
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- User registration & authentication with role-based access (`student` / `instructor`)
+- CRUD operations for courses and course categories
+- Course enrollment tracking with duplicate-enrollment protection
+- Protected routes via Sanctum token authentication
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Database Schema
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Table | Description |
+|---|---|
+| `users` | Registered users, with `role` (student/instructor) |
+| `course_categories` | Course categories (e.g. Web Development, Data Science) |
+| `courses` | Courses, linked to an instructor and a category |
+| `enrollments` | Tracks which students are enrolled in which courses |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## API Endpoints
 
-## Agentic Development
+### Public
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/register` | Register a new user |
+| POST | `/api/login` | Log in and receive an access token |
+| GET | `/api/courses` | List all courses |
+| GET | `/api/courses/{id}` | Get a single course by ID |
+| GET | `/api/categories` | List all course categories |
+| GET | `/api/categories/{id}` | Get a single category by ID |
+
+### Protected (requires `Authorization: Bearer {token}`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/courses` | Create a new course |
+| PUT | `/api/courses/{id}` | Update an existing course |
+| DELETE | `/api/courses/{id}` | Delete a course |
+| POST | `/api/categories` | Create a new category |
+| PUT | `/api/categories/{id}` | Update an existing category |
+| DELETE | `/api/categories/{id}` | Delete a category |
+| POST | `/api/logout` | Revoke the current access token |
+
+## Getting Started
+
+### Prerequisites
+
+- PHP 8.3+
+- Composer
+- MySQL or PostgreSQL
+
+### Installation
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/your-username/edulearn-api.git
+cd edulearn-api
+composer install
+cp .env.example .env
+php artisan key:generate
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Configure your database credentials in `.env`, then run:
 
-## Contributing
+```bash
+php artisan migrate --seed
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The API will be available at `http://localhost:8000`.
 
-## Code of Conduct
+### Sample credentials (from seeder)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Role | Email | Password |
+|---|---|---|
+| Instructor | jane@mail.com | Instructor123 |
+| Student | alice@mail.com | Student123 |
 
-## Security Vulnerabilities
+## Deployment
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This project is containerized with Docker and deployed on Render, using a managed MySQL database on Aiven with SSL enforced. On every push to `main`, Render automatically rebuilds and redeploys the container, running migrations and seeders on startup.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project was created for portfolio and learning purposes.

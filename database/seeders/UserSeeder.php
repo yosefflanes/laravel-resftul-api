@@ -14,32 +14,40 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-         User::firstOrCreate([
-            'name'     => 'Jane',
-            'email'    => 'jane@mail.com',
-            'password' => 'Instructor123',
-            'role'     => 'instructor',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'jane@mail.com'],
+            [
+                'name'     => 'Jane',
+                'password' => Hash::make('Instructor123'),
+                'role'     => 'instructor',
+            ]
+        );
 
-        User::firstOrCreate([
-            'name'     => 'John',
-            'email'    => 'john@mail.com',
-            'password' => 'Instructor123',
-            'role'     => 'instructor',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'john@mail.com'],
+            [
+                'name'     => 'John',
+                'password' => Hash::make('Instructor123'),
+                'role'     => 'instructor',
+            ]
+        );
 
-        User::firstOrCreate([
-            'name'     => 'Alice',
-            'email'    => 'alice@mail.com',
-            'password' => 'Student123',
-            'role'     => 'student',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'alice@mail.com'],
+            [
+                'name'     => 'Alice',
+                'password' => Hash::make('Student123'),
+                'role'     => 'student',
+            ]
+        );
 
-        User::firstOrCreate([
-            'name'     => 'Boby',
-            'email'    => 'boby@mail.com',
-            'password' => 'Student123',
-            'role'     => 'student',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'boby@mail.com'],
+            [
+                'name'     => 'Boby',
+                'password' => Hash::make('Student123'),
+                'role'     => 'student',
+            ]
+        );
     }
 }

@@ -37,7 +37,7 @@ class CourseController extends Controller
             ->orderBy(
                 $request->input('sort_by', 'created_at'),
                 $request->input('order', 'asc')
-            )->get();
+            )->paginate($request->input('per_page', 6));
 
         // Cek apakah hasil pencarian/filter kosong
         if ($courses->isEmpty()) {

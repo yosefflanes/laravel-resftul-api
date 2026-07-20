@@ -33,4 +33,6 @@ class UserController extends Controller
             return $this->errorResponse('Failed to fetch user', $e->getMessage(), 500);
         }
     }
+
+    
 }
